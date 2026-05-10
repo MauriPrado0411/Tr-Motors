@@ -133,7 +133,7 @@ export default function Hero() {
               style={{
                 fontFamily: 'var(--font-display)',
                 fontWeight: 900,
-                fontSize: 'clamp(72px, 11vw, 180px)',
+                fontSize: 'clamp(52px, 13vw, 180px)',
                 lineHeight: 0.88,
                 letterSpacing: '-0.02em',
                 textTransform: 'uppercase',
@@ -156,7 +156,7 @@ export default function Hero() {
                 fontFamily: 'var(--font-display)',
                 fontWeight: 900,
                 fontStyle: 'italic',
-                fontSize: 'clamp(72px, 11vw, 180px)',
+                fontSize: 'clamp(52px, 13vw, 180px)',
                 lineHeight: 0.88,
                 letterSpacing: '-0.02em',
                 textTransform: 'uppercase',
@@ -178,7 +178,7 @@ export default function Hero() {
               style={{
                 fontFamily: 'var(--font-display)',
                 fontWeight: 300,
-                fontSize: 'clamp(72px, 11vw, 180px)',
+                fontSize: 'clamp(52px, 13vw, 180px)',
                 lineHeight: 0.88,
                 letterSpacing: '-0.02em',
                 textTransform: 'uppercase',
@@ -197,7 +197,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.9 }}
           style={{
-            padding: '48px clamp(24px, 6vw, 120px) 0',
+            padding: '32px clamp(24px, 6vw, 120px) 160px',
             display: 'flex',
             flexWrap: 'wrap',
             alignItems: 'flex-end',
@@ -217,7 +217,7 @@ export default function Hero() {
             Cada servicio, un resultado que habla solo.
           </p>
 
-          <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', width: '100%' }}>
             <a
               href="#reservas"
               style={{
@@ -286,7 +286,7 @@ export default function Hero() {
         transition={{ duration: 1, delay: 1.2 }}
         style={{
           position: 'absolute',
-          bottom: '80px',
+          bottom: '0px',
           left: 0,
           right: 0,
           overflow: 'hidden',
