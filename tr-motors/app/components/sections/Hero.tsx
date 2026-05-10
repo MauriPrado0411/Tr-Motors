@@ -2,7 +2,6 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
-import { ArrowDown } from 'lucide-react';
 
 const serviceTags = [
   'Lavado Premium', 'Coating Cerámico', 'Pulido Profesional',
@@ -43,7 +42,7 @@ function FloatingTag({ label, index }: { label: string; index: number }) {
 export default function Hero() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
-  const y = useTransform(scrollYProgress, [0, 1], [0, 120]);
+  const y = useTransform(scrollYProgress, [0, 1], [0, -120]);
   const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
   return (
@@ -180,7 +179,7 @@ export default function Hero() {
             justifyContent: 'space-between',
           }}
         >
-          <p style={{
+          <p className="md:text-left text-center" style={{
             fontFamily: 'var(--font-body)',
             fontWeight: 300,
             fontSize: 'clamp(15px, 1.8vw, 18px)',
@@ -192,9 +191,10 @@ export default function Hero() {
             Cada servicio, un resultado que habla solo.
           </p>
 
-          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', width: '100%' }}>
+          <div className="flex-col md:flex-row" style={{ display: 'flex', gap: '12px', width: '100%', alignItems: 'stretch' }}>
             <a
               href="#reservas"
+              className="w-full md:w-auto text-center"
               style={{
                 fontFamily: 'var(--font-display)',
                 fontWeight: 700,
@@ -222,6 +222,7 @@ export default function Hero() {
             </a>
             <a
               href="#servicios"
+              className="w-full md:w-auto text-center"
               style={{
                 fontFamily: 'var(--font-display)',
                 fontWeight: 700,
@@ -278,35 +279,6 @@ export default function Hero() {
           {serviceTags.map((tag, i) => (
             <FloatingTag key={`${tag}-${i}`} label={tag} index={i} />
           ))}
-        </motion.div>
-      </motion.div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-        style={{
-          position: 'relative',
-          bottom: 'auto',
-          right: 'clamp(24px, 6vw, 120px)',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px',
-        }}
-      >
-        <span style={{
-          fontFamily: 'var(--font-mono)',
-          fontSize: '10px',
-          letterSpacing: '0.2em',
-          color: '#444',
-          textTransform: 'uppercase',
-        }}>scroll</span>
-        <motion.div
-          animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-        >
-          <ArrowDown size={14} color="#444" />
         </motion.div>
       </motion.div>
 

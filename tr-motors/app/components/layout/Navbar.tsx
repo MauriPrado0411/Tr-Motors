@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 
@@ -14,10 +14,18 @@ const navLinks = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const menuOpenRef = useRef(false);
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 40);
-    window.addEventListener('scroll', handler);
+    menuOpenRef.current = menuOpen;
+  }, [menuOpen]);
+
+  useEffect(() => {
+    const handler = () => {
+      setScrolled(window.scrollY > 40);
+      if (menuOpenRef.current) setMenuOpen(false);
+    };
+    window.addEventListener('scroll', handler, { passive: true });
     return () => window.removeEventListener('scroll', handler);
   }, []);
 
@@ -131,79 +139,97 @@ export default function Navbar() {
           <button
             className="md:hidden"
             onClick={() => setMenuOpen(!menuOpen)}
+            aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
             style={{
-              background: 'none',
+              background: 'rgba(255,255,255,0.06)',
               border: 'none',
               color: '#F5F5F5',
               cursor: 'pointer',
-              padding: '8px',
+              width: '40px',
+              height: '40px',
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              transition: 'background 0.2s ease',
             }}
+            onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.12)')}
+            onMouseLeave={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.06)')}
           >
-            {menuOpen ? <X size={24} /> : <Menu size={24} />}
+            {menuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </motion.nav>
 
-      {/* Mobile menu */}
+      {/* Mobile overlay menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
             style={{
               position: 'fixed',
-              top: '64px',
-              left: 0,
-              right: 0,
-              background: 'rgba(8,8,8,0.98)',
-              backdropFilter: 'blur(12px)',
+              inset: 0,
               zIndex: 999,
-              padding: '32px 40px',
-              borderBottom: '1px solid #222',
+              background: 'rgba(8,8,8,0.97)',
+              backdropFilter: 'blur(16px)',
               display: 'flex',
               flexDirection: 'column',
-              gap: '24px',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '32px',
             }}
           >
-            {navLinks.map((link) => (
-              <a
+            {navLinks.map((link, i) => (
+              <motion.a
                 key={link.href}
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+                transition={{ duration: 0.3, delay: i * 0.06 }}
                 style={{
                   fontFamily: 'var(--font-display)',
                   fontWeight: 700,
-                  fontSize: '24px',
-                  letterSpacing: '0.1em',
+                  fontSize: '28px',
+                  letterSpacing: '0.12em',
                   color: '#F5F5F5',
                   textDecoration: 'none',
                   textTransform: 'uppercase',
+                  transition: 'color 0.2s ease',
                 }}
+                onMouseEnter={e => (e.currentTarget.style.color = 'var(--red)')}
+                onMouseLeave={e => (e.currentTarget.style.color = '#F5F5F5')}
               >
                 {link.label}
-              </a>
+              </motion.a>
             ))}
-            <a
+            <motion.a
               href="#reservas"
               onClick={() => setMenuOpen(false)}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.3, delay: navLinks.length * 0.06 + 0.1 }}
               style={{
                 fontFamily: 'var(--font-display)',
                 fontWeight: 700,
-                fontSize: '16px',
+                fontSize: '15px',
                 letterSpacing: '0.15em',
                 textTransform: 'uppercase',
                 color: '#F5F5F5',
                 background: 'var(--red)',
-                padding: '14px 28px',
+                padding: '14px 36px',
                 textDecoration: 'none',
                 textAlign: 'center',
-                clipPath: 'polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%)',
+                clipPath: 'polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%)',
                 marginTop: '8px',
               }}
             >
               Reservar turno
-            </a>
+            </motion.a>
           </motion.div>
         )}
       </AnimatePresence>
