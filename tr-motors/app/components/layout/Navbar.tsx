@@ -85,13 +85,10 @@ export default function Navbar() {
           </a>
 
           {/* Desktop links */}
-          <div style={{
-            display: 'flex',
+          <div className="hidden md:flex" style={{
             gap: '36px',
             alignItems: 'center',
-          }}
-            className="hidden md:flex"
-          >
+          }}>
             {navLinks.map((link) => (
               <a
                 key={link.href}
@@ -137,7 +134,7 @@ export default function Navbar() {
 
           {/* Mobile hamburger */}
           <button
-            className="md:hidden"
+            className="block md:hidden"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
             style={{
