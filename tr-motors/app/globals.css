@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,700&family=Barlow:wght@300;400;500;600&family=Share+Tech+Mono&display=swap');
+@import "tailwindcss";
+
+
+:root {
+  --black: #080808;
+  --black-soft: #111111;
+  --black-card: #161616;
+  --black-border: #222222;
+  --chrome: #C0C0C0;
+  --chrome-light: #E8E8E8;
+  --chrome-dark: #888888;
+  --red: #CC2222;
+  --red-bright: #EE2222;
+  --red-dark: #991111;
+  --white: #F5F5F5;
+  --white-dim: #AAAAAA;
+
+  --font-display: 'Barlow Condensed', sans-serif;
+  --font-body: 'Barlow', sans-serif;
+  --font-mono: 'Share Tech Mono', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; background: var(--black); }
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--black); }
+::-webkit-scrollbar-thumb { background: var(--red); }
+
+.text-chrome {
+  background: linear-gradient(180deg, #E8E8E8 0%, #C0C0C0 40%, #888888 70%, #C0C0C0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-red-gradient {
+  background: linear-gradient(180deg, #FF4444 0%, #CC2222 50%, #991111 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.red-line {
+  width: 48px;
+  height: 3px;
+  background: var(--red);
+}
+
+.section-pad { padding: 120px 0; }
+
+@media (max-width: 768px) {
+  .section-pad { padding: 80px 0; }
+}
