@@ -24,125 +24,127 @@ export default function Navbar() {
 
   return (
     <>
-      <motion.nav
-        initial={{ y: -80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 1000,
-          padding: '0 clamp(16px, 4vw, 40px)',
-          height: scrolled ? '56px' : '64px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          background: scrolled
-            ? 'rgba(8,8,8,0.95)'
-            : 'transparent',
-          borderBottom: scrolled ? '1px solid #222' : '1px solid transparent',
-          backdropFilter: scrolled ? 'blur(12px)' : 'none',
-          transition: 'all 0.4s ease',
-        }}
-      >
-        {/* Logo */}
-        <a href="#" style={{ textDecoration: 'none' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
-            <span style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: '26px',
-              fontWeight: 900,
-              letterSpacing: '0.04em',
-              background: 'linear-gradient(180deg, #E8E8E8 0%, #C0C0C0 40%, #888 70%, #C0C0C0 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            }}>
-              TR <span style={{
-                background: 'linear-gradient(180deg, #FF4444 0%, #CC2222 50%, #991111 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}>M</span>OTORS
-            </span>
-            <span style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: '8px',
-              letterSpacing: '0.25em',
-              color: '#888',
-              marginTop: '2px',
-            }}>
-              PERFORMANCE X DETAILING
-            </span>
-          </div>
-        </a>
-
-        {/* Desktop links */}
-        <div style={{
-          display: 'flex',
-          gap: '36px',
-          alignItems: 'center',
-        }}
-          className="hidden md:flex"
-        >
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontWeight: 600,
-                fontSize: '13px',
-                letterSpacing: '0.15em',
-                color: '#AAAAAA',
-                textDecoration: 'none',
-                textTransform: 'uppercase',
-                transition: 'color 0.2s ease',
-              }}
-              onMouseEnter={e => (e.currentTarget.style.color = '#F5F5F5')}
-              onMouseLeave={e => (e.currentTarget.style.color = '#AAAAAA')}
-            >
-              {link.label}
-            </a>
-          ))}
-
-          <a
-            href="#reservas"
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontWeight: 700,
-              fontSize: '13px',
-              letterSpacing: '0.15em',
-              textTransform: 'uppercase',
-              color: '#F5F5F5',
-              background: 'var(--red)',
-              padding: '10px 24px',
-              textDecoration: 'none',
-              clipPath: 'polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%)',
-              transition: 'background 0.2s ease',
-            }}
-            onMouseEnter={e => (e.currentTarget.style.background = 'var(--red-bright)')}
-            onMouseLeave={e => (e.currentTarget.style.background = 'var(--red)')}
-          >
-            Reservar turno
-          </a>
-        </div>
-
-        {/* Mobile hamburger */}
-        <button
-          className="md:hidden"
-          onClick={() => setMenuOpen(!menuOpen)}
+      <div className="hidden md:block">
+        <motion.nav
+          initial={{ y: -80, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           style={{
-            background: 'none',
-            border: 'none',
-            color: '#F5F5F5',
-            cursor: 'pointer',
-            padding: '8px',
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            zIndex: 1000,
+            padding: '0 clamp(16px, 4vw, 40px)',
+            height: scrolled ? '56px' : '64px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            background: scrolled
+              ? 'rgba(8,8,8,0.95)'
+              : 'transparent',
+            borderBottom: scrolled ? '1px solid #222' : '1px solid transparent',
+            backdropFilter: scrolled ? 'blur(12px)' : 'none',
+            transition: 'all 0.4s ease',
           }}
         >
-          {menuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
-      </motion.nav>
+          {/* Logo */}
+          <a href="#" style={{ textDecoration: 'none' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
+              <span style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: '26px',
+                fontWeight: 900,
+                letterSpacing: '0.04em',
+                background: 'linear-gradient(180deg, #E8E8E8 0%, #C0C0C0 40%, #888 70%, #C0C0C0 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}>
+                TR <span style={{
+                  background: 'linear-gradient(180deg, #FF4444 0%, #CC2222 50%, #991111 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                }}>M</span>OTORS
+              </span>
+              <span style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '8px',
+                letterSpacing: '0.25em',
+                color: '#888',
+                marginTop: '2px',
+              }}>
+                PERFORMANCE X DETAILING
+              </span>
+            </div>
+          </a>
+
+          {/* Desktop links */}
+          <div style={{
+            display: 'flex',
+            gap: '36px',
+            alignItems: 'center',
+          }}
+            className="hidden md:flex"
+          >
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                style={{
+                  fontFamily: 'var(--font-display)',
+                  fontWeight: 600,
+                  fontSize: '13px',
+                  letterSpacing: '0.15em',
+                  color: '#AAAAAA',
+                  textDecoration: 'none',
+                  textTransform: 'uppercase',
+                  transition: 'color 0.2s ease',
+                }}
+                onMouseEnter={e => (e.currentTarget.style.color = '#F5F5F5')}
+                onMouseLeave={e => (e.currentTarget.style.color = '#AAAAAA')}
+              >
+                {link.label}
+              </a>
+            ))}
+
+            <a
+              href="#reservas"
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontWeight: 700,
+                fontSize: '13px',
+                letterSpacing: '0.15em',
+                textTransform: 'uppercase',
+                color: '#F5F5F5',
+                background: 'var(--red)',
+                padding: '10px 24px',
+                textDecoration: 'none',
+                clipPath: 'polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%)',
+                transition: 'background 0.2s ease',
+              }}
+              onMouseEnter={e => (e.currentTarget.style.background = 'var(--red-bright)')}
+              onMouseLeave={e => (e.currentTarget.style.background = 'var(--red)')}
+            >
+              Reservar turno
+            </a>
+          </div>
+
+          {/* Mobile hamburger */}
+          <button
+            className="md:hidden"
+            onClick={() => setMenuOpen(!menuOpen)}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: '#F5F5F5',
+              cursor: 'pointer',
+              padding: '8px',
+            }}
+          >
+            {menuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </motion.nav>
+      </div>
 
       {/* Mobile menu */}
       <AnimatePresence>

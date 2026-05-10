@@ -98,31 +98,6 @@ export default function Hero() {
         style={{ y, opacity }}
         className="relative z-10"
       >
-        {/* Top label */}
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '12px',
-            padding: '0 clamp(24px, 6vw, 120px)',
-            marginBottom: '40px',
-          }}
-        >
-          <div style={{ width: '32px', height: '2px', background: 'var(--red)' }} />
-          <span style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '11px',
-            letterSpacing: '0.3em',
-            color: 'var(--red)',
-            textTransform: 'uppercase',
-          }}>
-            Montevideo — Uruguay
-          </span>
-        </motion.div>
-
         {/* Main headline */}
         <div style={{ padding: '0 clamp(24px, 6vw, 120px)' }}>
           <div style={{ overflow: 'hidden' }}>
@@ -335,24 +310,6 @@ export default function Hero() {
         </motion.div>
       </motion.div>
 
-      {/* Side counter */}
-      <div style={{
-        position: 'absolute',
-        left: '20px',
-        top: '50%',
-        transform: 'translateY(-50%) rotate(-90deg)',
-        transformOrigin: 'center',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '12px',
-      }}>
-        <span style={{
-          fontFamily: 'var(--font-mono)',
-          fontSize: '10px',
-          letterSpacing: '0.3em',
-          color: '#333',
-        }}>01 / INICIO</span>
-      </div>
     </section>
   );
 }
