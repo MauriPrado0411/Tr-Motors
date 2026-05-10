@@ -172,7 +172,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.9 }}
           style={{
-            padding: '32px clamp(24px, 6vw, 120px) 160px',
+            padding: '32px clamp(24px, 6vw, 120px) 0',
             display: 'flex',
             flexWrap: 'wrap',
             alignItems: 'flex-end',
@@ -260,8 +260,8 @@ export default function Hero() {
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 1.2 }}
         style={{
-          position: 'absolute',
-          bottom: '0px',
+          position: 'relative',
+          bottom: 'auto',
           left: 0,
           right: 0,
           overflow: 'hidden',
@@ -287,8 +287,8 @@ export default function Hero() {
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}
         style={{
-          position: 'absolute',
-          bottom: '28px',
+          position: 'relative',
+          bottom: 'auto',
           right: 'clamp(24px, 6vw, 120px)',
           display: 'flex',
           alignItems: 'center',

@@ -59,7 +59,7 @@ export default function Contact() {
               letterSpacing: '0.3em',
               color: 'var(--red)',
               textTransform: 'uppercase',
-            }}>07 / Contacto</span>
+            }}>06 / Contacto</span>
           </motion.div>
 
           <motion.h2

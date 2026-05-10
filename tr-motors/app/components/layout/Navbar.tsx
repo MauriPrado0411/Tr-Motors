@@ -24,7 +24,7 @@ export default function Navbar() {
 
   return (
     <>
-      <div className="hidden md:block">
+      
         <motion.nav
           initial={{ y: -80, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -144,7 +144,6 @@ export default function Navbar() {
             {menuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </motion.nav>
-      </div>
 
       {/* Mobile menu */}
       <AnimatePresence>
