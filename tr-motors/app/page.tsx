@@ -4,7 +4,6 @@ import Services from './components/sections/Services';
 import Process from './components/sections/Process';
 import Gallery from './components/sections/Gallery';
 import Booking from './components/sections/Booking';
-import About from './components/sections/About';
 import Contact from './components/sections/Contact';
 import Footer from './components/layout/Footer';
 
@@ -17,7 +16,6 @@ export default function Home() {
         <Services />
         <Process />
         <Gallery />
-        <About />
         <Booking />
         <Contact />
       </main>
