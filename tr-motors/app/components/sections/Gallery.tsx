@@ -1,22 +1,34 @@
 'use client';
 
 import { motion, useInView } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import type { Swiper as SwiperType } from 'swiper';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
-// Placeholder gallery items - client will replace with real photos
 const galleryItems = [
-  { id: 1, label: 'Coating Cerámico — Ferrari 488', category: 'coating', size: 'large' },
-  { id: 2, label: 'Pulido Profesional — BMW M3', category: 'pulido', size: 'small' },
-  { id: 3, label: 'Full Detailing — Porsche 911', category: 'full', size: 'small' },
-  { id: 4, label: 'Detailing Interior — Mercedes AMG', category: 'interior', size: 'medium' },
-  { id: 5, label: 'PPF — Lamborghini Huracán', category: 'ppf', size: 'medium' },
-  { id: 6, label: 'Lavado Premium — Audi RS6', category: 'lavado', size: 'small' },
+  { id: 1, label: 'Coating Cerámico — Ferrari 488', category: 'coating' },
+  { id: 2, label: 'Pulido Profesional — BMW M3', category: 'pulido' },
+  { id: 3, label: 'Full Detailing — Porsche 911', category: 'full' },
+  { id: 4, label: 'Detailing Interior — Mercedes AMG', category: 'interior' },
+  { id: 5, label: 'PPF — Lamborghini Huracán', category: 'ppf' },
+  { id: 6, label: 'Lavado Premium — Audi RS6', category: 'lavado' },
 ];
 
 const categories = ['Todos', 'Coating', 'Pulido', 'Interior', 'PPF', 'Full'];
 
-// Placeholder colored blocks simulating photos
-const colors = [
+const imageFiles = [
+  '/images/gallery-1.jpg',
+  '/images/gallery-2.jpg',
+  '/images/gallery-3.jpg',
+  '/images/gallery-4.jpg',
+  '/images/gallery-5.jpg',
+];
+
+const fallbackGradients = [
   'linear-gradient(135deg, #1a0808 0%, #2d0a0a 50%, #1a0808 100%)',
   'linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0d0d0d 100%)',
   'linear-gradient(135deg, #080d08 0%, #111811 50%, #080d08 100%)',
@@ -29,11 +41,24 @@ export default function Gallery() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: '-100px' });
   const [active, setActive] = useState('Todos');
+  const swiperRef = useRef<SwiperType | null>(null);
+
+  const filtered =
+    active === 'Todos'
+      ? galleryItems
+      : galleryItems.filter((i) => i.category === active.toLowerCase());
+
+  const filteredIndices = filtered.map((item) => galleryItems.indexOf(item));
+
+  useEffect(() => {
+    if (swiperRef.current) {
+      swiperRef.current.slideTo(0);
+    }
+  }, [active]);
 
   return (
     <section id="galeria" className="section-pad" style={{ background: 'var(--black)' }}>
       <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 clamp(24px, 6vw, 120px)' }}>
-
         <div ref={ref} style={{ marginBottom: '60px' }}>
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -50,7 +75,13 @@ export default function Gallery() {
             }}>04 / Galería</span>
           </motion.div>
 
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '32px' }}>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'flex-end',
+            flexWrap: 'wrap',
+            gap: '32px',
+          }}>
             <motion.h2
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -64,18 +95,21 @@ export default function Gallery() {
                 letterSpacing: '-0.02em',
               }}
             >
-              <span style={{ color: 'rgba(192,192,192,0.2)', WebkitTextStroke: '1px rgba(192,192,192,0.2)' }}>El trabajo</span><br />
+              <span style={{
+                color: 'rgba(192,192,192,0.2)',
+                WebkitTextStroke: '1px rgba(192,192,192,0.2)',
+              }}>El trabajo</span>
+              <br />
               <span className="text-chrome">habla solo.</span>
             </motion.h2>
 
-            {/* Filter tabs */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={inView ? { opacity: 1 } : {}}
               transition={{ delay: 0.3 }}
               style={{ display: 'flex', gap: '2px', flexWrap: 'wrap' }}
             >
-              {categories.map(cat => (
+              {categories.map((cat) => (
                 <button
                   key={cat}
                   onClick={() => setActive(cat)}
@@ -101,112 +135,97 @@ export default function Gallery() {
           </div>
         </div>
 
-        {/* Gallery grid */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(12, 1fr)',
-          gridTemplateRows: 'auto',
-          gap: '3px',
-        }}>
-          {galleryItems.map((item, i) => {
-            const colSpans = [8, 4, 4, 6, 6, 4];
-            const heights = ['380px', '380px', '380px', '320px', '320px', '320px'];
-            return (
-              <motion.div
-                key={item.id}
-                initial={{ opacity: 0, scale: 0.96 }}
-                animate={inView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ duration: 0.6, delay: 0.1 + i * 0.08 }}
-                style={{
-                  gridColumn: `span ${colSpans[i]}`,
-                  height: heights[i],
-                  background: colors[i],
-                  position: 'relative',
-                  overflow: 'hidden',
-                  cursor: 'pointer',
-                }}
-                onMouseEnter={e => {
-                  const overlay = e.currentTarget.querySelector('.overlay') as HTMLElement;
-                  if (overlay) overlay.style.opacity = '1';
-                }}
-                onMouseLeave={e => {
-                  const overlay = e.currentTarget.querySelector('.overlay') as HTMLElement;
-                  if (overlay) overlay.style.opacity = '0';
-                }}
-              >
-                {/* Placeholder pattern */}
-                <div style={{
-                  position: 'absolute',
-                  inset: 0,
-                  backgroundImage: 'repeating-linear-gradient(45deg, rgba(255,255,255,0.01) 0px, rgba(255,255,255,0.01) 1px, transparent 1px, transparent 20px)',
-                }} />
-
-                {/* Center placeholder text */}
-                <div style={{
-                  position: 'absolute',
-                  inset: 0,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  flexDirection: 'column',
-                  gap: '8px',
-                }}>
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.3 }}
+          className="gallery-swiper"
+        >
+          <Swiper
+            onSwiper={(s) => { swiperRef.current = s; }}
+            modules={[Autoplay, Navigation, Pagination]}
+            slidesPerView={1}
+            navigation
+            pagination={{ clickable: true }}
+            autoplay={{
+              delay: 4000,
+              pauseOnMouseEnter: true,
+              disableOnInteraction: false,
+            }}
+            loop={filtered.length > 1}
+            speed={700}
+            grabCursor
+            style={{ width: '100%' }}
+          >
+            {filtered.map((item, i) => {
+              const imgIndex = filteredIndices[i];
+              const src = imgIndex < imageFiles.length ? imageFiles[imgIndex] : null;
+              return (
+                <SwiperSlide key={item.id}>
                   <div style={{
-                    width: '40px',
-                    height: '40px',
-                    border: '1px solid #333',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    position: 'relative',
+                    width: '100%',
+                    height: '520px',
+                    overflow: 'hidden',
                   }}>
-                    <div style={{ width: '16px', height: '16px', background: '#222' }} />
+                    {src ? (
+                      <img
+                        src={src}
+                        alt={item.label}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                          display: 'block',
+                        }}
+                      />
+                    ) : (
+                      <div style={{
+                        width: '100%',
+                        height: '100%',
+                        background: fallbackGradients[imgIndex] || fallbackGradients[0],
+                      }} />
+                    )}
+
+                    <div style={{
+                      position: 'absolute',
+                      inset: 0,
+                      background: 'linear-gradient(0deg, rgba(0,0,0,0.7) 0%, transparent 40%, transparent 100%)',
+                    }} />
+
+                    <div style={{
+                      position: 'absolute',
+                      bottom: '40px',
+                      left: '40px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '12px',
+                    }}>
+                      <div style={{
+                        width: '32px',
+                        height: '3px',
+                        background: 'var(--red)',
+                      }} />
+                      <span style={{
+                        fontFamily: 'var(--font-display)',
+                        fontWeight: 700,
+                        fontSize: 'clamp(20px, 2.5vw, 32px)',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.05em',
+                        color: '#F5F5F5',
+                        lineHeight: 1.2,
+                        textShadow: '0 2px 12px rgba(0,0,0,0.5)',
+                      }}>
+                        {item.label}
+                      </span>
+                    </div>
                   </div>
-                  <span style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '9px',
-                    color: '#333',
-                    letterSpacing: '0.2em',
-                    textTransform: 'uppercase',
-                  }}>foto del trabajo</span>
-                </div>
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
+        </motion.div>
 
-                {/* Hover overlay */}
-                <div
-                  className="overlay"
-                  style={{
-                    position: 'absolute',
-                    inset: 0,
-                    background: 'rgba(8,8,8,0.85)',
-                    opacity: 0,
-                    transition: 'opacity 0.3s ease',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'flex-end',
-                    padding: '28px',
-                  }}
-                >
-                  <div style={{
-                    width: '24px',
-                    height: '2px',
-                    background: 'var(--red)',
-                    marginBottom: '12px',
-                  }} />
-                  <span style={{
-                    fontFamily: 'var(--font-display)',
-                    fontWeight: 700,
-                    fontSize: '16px',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.05em',
-                    color: '#F5F5F5',
-                    lineHeight: 1.3,
-                  }}>{item.label}</span>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
-
-        {/* CTA */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
@@ -241,11 +260,11 @@ export default function Gallery() {
               clipPath: 'polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%)',
               transition: 'color 0.2s, border-color 0.2s',
             }}
-            onMouseEnter={e => {
+            onMouseEnter={(e) => {
               e.currentTarget.style.color = '#F5F5F5';
               e.currentTarget.style.borderColor = '#444';
             }}
-            onMouseLeave={e => {
+            onMouseLeave={(e) => {
               e.currentTarget.style.color = '#888';
               e.currentTarget.style.borderColor = '#222';
             }}
@@ -254,6 +273,43 @@ export default function Gallery() {
           </a>
         </motion.div>
       </div>
+
+      <style>{`
+        .gallery-swiper .swiper-button-prev,
+        .gallery-swiper .swiper-button-next {
+          color: #F5F5F5;
+          background: rgba(0,0,0,0.4);
+          width: 48px;
+          height: 48px;
+          border-radius: 0;
+          transition: background 0.2s ease;
+        }
+        .gallery-swiper .swiper-button-prev:hover,
+        .gallery-swiper .swiper-button-next:hover {
+          background: rgba(0,0,0,0.7);
+        }
+        .gallery-swiper .swiper-button-prev::after,
+        .gallery-swiper .swiper-button-next::after {
+          font-size: 18px;
+          font-weight: 700;
+        }
+        .gallery-swiper .swiper-pagination {
+          position: relative;
+          margin-top: 24px;
+        }
+        .gallery-swiper .swiper-pagination-bullet {
+          background: #333;
+          opacity: 1;
+          width: 10px;
+          height: 10px;
+          margin: 0 6px !important;
+          border-radius: 0;
+          transition: background 0.2s ease;
+        }
+        .gallery-swiper .swiper-pagination-bullet-active {
+          background: var(--red);
+        }
+      `}</style>
     </section>
   );
 }
