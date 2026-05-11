@@ -117,7 +117,7 @@ export default function Hero() {
                 backgroundClip: 'text',
               }}
             >
-              Tu auto.
+              Tu auto
             </motion.h1>
           </div>
 
@@ -140,7 +140,7 @@ export default function Hero() {
                 backgroundClip: 'text',
               }}
             >
-              Impecable.
+              Impecable
             </motion.h1>
           </div>
 
