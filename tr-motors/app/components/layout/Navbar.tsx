@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import Logo from '../shared/Logo';
 
 const navLinks = [
   { label: 'Servicios', href: '#servicios' },
@@ -56,32 +57,7 @@ export default function Navbar() {
         >
           {/* Logo */}
           <a href="#" style={{ textDecoration: 'none' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
-              <span style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: '26px',
-                fontWeight: 900,
-                letterSpacing: '0.04em',
-                background: 'linear-gradient(180deg, #E8E8E8 0%, #C0C0C0 40%, #888 70%, #C0C0C0 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}>
-                TR <span style={{
-                  background: 'linear-gradient(180deg, #FF4444 0%, #CC2222 50%, #991111 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                }}>M</span>OTORS
-              </span>
-              <span style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '8px',
-                letterSpacing: '0.25em',
-                color: '#888',
-                marginTop: '2px',
-              }}>
-                PERFORMANCE X DETAILING
-              </span>
-            </div>
+            <Logo />
           </a>
 
           {/* Desktop links */}
