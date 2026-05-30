@@ -10,23 +10,15 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 const galleryItems = [
-  { id: 1, label: 'Coating Cerámico — Ferrari 488', category: 'coating' },
-  { id: 2, label: 'Pulido Profesional — BMW M3', category: 'pulido' },
-  { id: 3, label: 'Full Detailing — Porsche 911', category: 'full' },
-  { id: 4, label: 'Detailing Interior — Mercedes AMG', category: 'interior' },
-  { id: 5, label: 'PPF — Lamborghini Huracán', category: 'ppf' },
-  { id: 6, label: 'Lavado Premium — Audi RS6', category: 'lavado' },
+  { id: 1, label: 'Coating Cerámico — Ferrari 488', category: 'coating', image: '/images/gallery-1.jpg' },
+  { id: 2, label: 'Pulido Profesional — BMW M3', category: 'pulido', image: '/images/gallery-2.jpg' },
+  { id: 3, label: 'Full Detailing — Porsche 911', category: 'full', image: '/images/gallery-3.jpg' },
+  { id: 4, label: 'Detailing Interior — Mercedes AMG', category: 'interior', image: '/images/gallery-4.jpg' },
+  { id: 5, label: 'PPF — Lamborghini Huracán', category: 'ppf', image: '/images/gallery-5.jpg' },
+  { id: 6, label: 'Lavado Premium — Audi RS6', category: 'lavado', image: null },
 ];
 
 const categories = ['Todos', 'Coating', 'Pulido', 'Interior', 'PPF', 'Full'];
-
-const imageFiles = [
-  '/images/gallery-1.jpg',
-  '/images/gallery-2.jpg',
-  '/images/gallery-3.jpg',
-  '/images/gallery-4.jpg',
-  '/images/gallery-5.jpg',
-];
 
 const fallbackGradients = [
   'linear-gradient(135deg, #1a0808 0%, #2d0a0a 50%, #1a0808 100%)',
@@ -47,8 +39,6 @@ export default function Gallery() {
     active === 'Todos'
       ? galleryItems
       : galleryItems.filter((i) => i.category === active.toLowerCase());
-
-  const filteredIndices = filtered.map((item) => galleryItems.indexOf(item));
 
   useEffect(() => {
     if (swiperRef.current) {
@@ -158,8 +148,6 @@ export default function Gallery() {
             style={{ width: '100%' }}
           >
             {filtered.map((item, i) => {
-              const imgIndex = filteredIndices[i];
-              const src = imgIndex < imageFiles.length ? imageFiles[imgIndex] : null;
               return (
                 <SwiperSlide key={item.id}>
                   <div style={{
@@ -168,9 +156,9 @@ export default function Gallery() {
                     height: '520px',
                     overflow: 'hidden',
                   }}>
-                    {src ? (
+                    {item.image ? (
                       <img
-                        src={src}
+                        src={item.image}
                         alt={item.label}
                         style={{
                           width: '100%',
@@ -183,7 +171,7 @@ export default function Gallery() {
                       <div style={{
                         width: '100%',
                         height: '100%',
-                        background: fallbackGradients[imgIndex] || fallbackGradients[0],
+                        background: fallbackGradients[i % fallbackGradients.length],
                       }} />
                     )}
 

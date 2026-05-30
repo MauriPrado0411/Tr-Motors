@@ -100,7 +100,7 @@ export default function Contact() {
                     transition={{ duration: 0.6, delay: 0.2 + i * 0.1 }}
                   >
                     <Wrapper
-                      {...(item.href ? { href: item.href, target: '_blank', rel: 'noopener noreferrer' } : {})}
+                      {...(item.href ? { href: item.href, target: '_blank', rel: 'noopener noreferrer', 'aria-label': item.label } : {})}
                       style={{
                         display: 'flex',
                         alignItems: 'center',

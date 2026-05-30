@@ -1,5 +1,7 @@
 'use client';
 
+import Logo from '../shared/Logo';
+
 export default function Footer() {
   return (
     <footer style={{
@@ -17,30 +19,7 @@ export default function Footer() {
         gap: '24px',
       }}>
         {/* Logo */}
-        <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
-          <span style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: '20px',
-            fontWeight: 900,
-            letterSpacing: '0.04em',
-            background: 'linear-gradient(180deg, #E8E8E8 0%, #C0C0C0 40%, #888 70%, #C0C0C0 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-          }}>
-            TR <span style={{
-              background: 'linear-gradient(180deg, #FF4444 0%, #CC2222 50%, #991111 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            }}>M</span>OTORS
-          </span>
-          <span style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '8px',
-            letterSpacing: '0.25em',
-            color: '#444',
-            marginTop: '2px',
-          }}>PERFORMANCE X DETAILING</span>
-        </div>
+        <Logo size={20} subtitleColor="#444" />
 
         <div style={{
           fontFamily: 'var(--font-mono)',
@@ -68,6 +47,7 @@ export default function Footer() {
               }}
               onMouseEnter={e => (e.currentTarget.style.color = '#888')}
               onMouseLeave={e => (e.currentTarget.style.color = '#444')}
+              aria-label={social}
             >
               {social}
             </a>
