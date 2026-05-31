@@ -24,7 +24,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
     addTimer(() => setSmokeActive(true), 700);
 
     carControls.start({
-      x: '20vw',
+      x: 0,
       scale: 1,
       rotate: 0,
       transition: {

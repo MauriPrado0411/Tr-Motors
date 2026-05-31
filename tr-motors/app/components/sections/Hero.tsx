@@ -5,9 +5,11 @@ import { useRef } from 'react';
 
 const serviceTags = [
   'Lavado Premium', 'Coating Cerámico', 'Pulido Profesional',
-  'Detailing Interior', 'Paint Protection Film', 'Descontaminación',
+  'Detailing Interior', 'Lámina de Seguridad', 'Saca Bollo',
+  'Full Detailing', 'Descontaminación',
   'Lavado Premium', 'Coating Cerámico', 'Pulido Profesional',
-  'Detailing Interior', 'Paint Protection Film', 'Descontaminación',
+  'Detailing Interior', 'Lámina de Seguridad', 'Saca Bollo',
+  'Full Detailing', 'Descontaminación',
 ];
 
 function FloatingTag({ label, index }: { label: string; index: number }) {

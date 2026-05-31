@@ -32,10 +32,16 @@ export default function Footer() {
         </div>
 
         <div style={{ display: 'flex', gap: '24px' }}>
-          {['Instagram', 'WhatsApp', 'Facebook'].map(social => (
+          {[
+            { label: 'Instagram', href: 'https://instagram.com/trmotors.uy' },
+            { label: 'WhatsApp', href: 'https://wa.me/59891946795' },
+            { label: 'Email', href: 'mailto:joeltripodi.trabajo@gmail.com' },
+          ].map(social => (
             <a
-              key={social}
-              href="#"
+              key={social.label}
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
               style={{
                 fontFamily: 'var(--font-mono)',
                 fontSize: '10px',
@@ -47,9 +53,9 @@ export default function Footer() {
               }}
               onMouseEnter={e => (e.currentTarget.style.color = '#888')}
               onMouseLeave={e => (e.currentTarget.style.color = '#444')}
-              aria-label={social}
+              aria-label={social.label}
             >
-              {social}
+              {social.label}
             </a>
           ))}
         </div>

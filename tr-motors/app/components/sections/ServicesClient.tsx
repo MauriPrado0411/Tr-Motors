@@ -2,12 +2,7 @@
 
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useRef, useState, useEffect, useCallback } from 'react';
-import { Droplets, Zap, Shield, Wind, Sparkles, Car, X } from 'lucide-react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+import { Droplets, Shield, Wind, Sparkles, Car, ShieldCheck, X } from 'lucide-react';
 
 const services = [
   {
@@ -17,7 +12,7 @@ const services = [
     tagline: 'Más que un lavado.',
     description: 'Proceso completo de descontaminación exterior con productos de alta gama. Sin contacto dañino, sin marcas.',
     features: ['Foam cannon', 'Lavado sin contacto', 'Secado con soplador', 'Protección de vidrios'],
-    price: 'Desde $900',
+    price: 'Consultar',
     duration: '2-3 hs',
     color: 'var(--chrome)',
   },
@@ -26,9 +21,9 @@ const services = [
     icon: Sparkles,
     name: 'Pulido Profesional',
     tagline: 'Borramos el tiempo.',
-    description: 'Corrección de pintura con maquinas orbitales. Eliminamos rayones, espirales y oxidación.',
-    features: ['Corrección 1 paso', 'Corrección 2 pasos', 'Acabado espejo', 'Sin hologramas'],
-    price: 'Desde $3.500',
+    description: 'Corrección de pintura con máquinas orbitales. Eliminamos rayones, espirales y oxidación.',
+    features: ['Corrección 1 paso', 'Corrección 2 pasos', 'Acabado espejo', 'Sin hologramas', 'Saca bollo disponible'],
+    price: 'Consultar',
     duration: '1-2 días',
     color: 'var(--chrome)',
     featured: true,
@@ -38,9 +33,9 @@ const services = [
     icon: Shield,
     name: 'Coating Cerámico',
     tagline: 'Protección de por vida.',
-    description: 'Aplicación de recubrimiento cerámico profesional. Hidrofóbico, anti-rayado y brillo permanente.',
-    features: ['9H hardness', 'Garantía 2-5 años', 'Efecto hidrofóbico', 'Brillo profundo'],
-    price: 'Desde $8.000',
+    description: 'Corrección de pintura (eliminación de rayas y defectos del barniz) en tres pasos, buscando profundidad en el color y abrillantado del mismo, luego sellado con cerámico (Gyeon, Gtechniq, Dimension 10H). Protección nanocerámico de largo plazo sobre la carrocería. Resistencias a rayos UV, repelencia extrema al agua y brillo de alto estándar.',
+    features: ['Corrección 3 pasos', 'Sellado cerámico premium', 'Resistencia UV', 'Repelencia extrema al agua', 'Brillo alto estándar', 'Garantía 2-5 años'],
+    price: 'Consultar',
     duration: '2-3 días',
     color: 'var(--red)',
     highlight: true,
@@ -52,17 +47,17 @@ const services = [
     tagline: 'Adentro también importa.',
     description: 'Limpieza profunda de habitáculo completo: tapizados, plásticos, alfombras y cuero.',
     features: ['Extracción de suciedad', 'Ozono anti-olor', 'Protección cuero', 'Sanitización'],
-    price: 'Desde $2.000',
+    price: 'Consultar',
     duration: '4-6 hs',
     color: 'var(--chrome)',
   },
   {
     id: '05',
-    icon: Zap,
-    name: 'Paint Protection Film',
-    tagline: 'Invisible. Invencible.',
-    description: 'Película de protección de pintura (PPF) autosanante. El máximo nivel de protección física.',
-    features: ['Autosanante', 'Anti-impactos', 'Transparente', 'Garantía 10 años'],
+    icon: ShieldCheck,
+    name: 'Lámina de Seguridad',
+    tagline: 'Protección invisible.',
+    description: 'Aplicación de lámina de protección para pintura (PPF) de alta calidad. Protege contra impactos, rayaduras y agentes externos manteniendo el acabado original.',
+    features: ['Autosanante', 'Anti-impactos', 'Protección UV', 'Transparente', 'Garantía 5 años'],
     price: 'Consultar',
     duration: 'A definir',
     color: 'var(--chrome)',
@@ -73,7 +68,7 @@ const services = [
     name: 'Full Detailing',
     tagline: 'El tratamiento completo.',
     description: 'Paquete integral que combina todos nuestros servicios. El auto sale como nuevo del taller.',
-    features: ['Pulido + Coating', 'Interior completo', 'Vidrios tratados', 'Llantas y gomas'],
+    features: ['Pulido + Coating', 'Interior completo', 'Vidrios tratados', 'Llantas y gomas', 'Saca bollo disponible'],
     price: 'Consultar',
     duration: '3-5 días',
     color: 'var(--red)',
@@ -88,13 +83,6 @@ function ServiceModal({
   onClose: () => void;
 }) {
   const Icon = service.icon;
-
-  const placeholderSlides = [
-    { gradient: `linear-gradient(135deg, #1a0808 0%, #2d0a0a 50%, #1a0808 100%)`, label: 'Imagen 1' },
-    { gradient: `linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0d0d0d 100%)`, label: 'Imagen 2' },
-    { gradient: `linear-gradient(135deg, #080d08 0%, #111811 50%, #080d08 100%)`, label: 'Imagen 3' },
-    { gradient: `linear-gradient(135deg, #08080d 0%, #11111a 50%, #08080d 100%)`, label: 'Imagen 4' },
-  ];
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -205,53 +193,6 @@ function ServiceModal({
             letterSpacing: '0.05em',
           }}>{service.tagline}</p>
 
-          <div className="modal-swiper" style={{ marginBottom: '36px' }}>
-            <Swiper
-              modules={[Navigation, Pagination]}
-              slidesPerView={1}
-              navigation
-              pagination={{ clickable: true }}
-              grabCursor
-              loop
-              style={{ width: '100%' }}
-            >
-              {placeholderSlides.map((slide, i) => (
-                <SwiperSlide key={i}>
-                  <div style={{
-                    width: '100%',
-                    height: '280px',
-                    background: slide.gradient,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    position: 'relative',
-                  }}>
-                    <div style={{
-                      width: '48px',
-                      height: '48px',
-                      border: '1px solid rgba(255,255,255,0.1)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}>
-                      <div style={{ width: '20px', height: '20px', background: 'rgba(255,255,255,0.05)' }} />
-                    </div>
-                    <span style={{
-                      position: 'absolute',
-                      bottom: '20px',
-                      right: '24px',
-                      fontFamily: 'var(--font-mono)',
-                      fontSize: '10px',
-                      color: 'rgba(255,255,255,0.15)',
-                      letterSpacing: '0.2em',
-                      textTransform: 'uppercase',
-                    }}>{slide.label}</span>
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
-
           <div style={{ marginBottom: '28px' }}>
             <h3 style={{
               fontFamily: 'var(--font-display)',
@@ -356,34 +297,6 @@ function ServiceModal({
       </motion.div>
 
       <style>{`
-        .modal-swiper .swiper-button-prev,
-        .modal-swiper .swiper-button-next {
-          color: #F5F5F5;
-          background: rgba(0,0,0,0.4);
-          width: 40px;
-          height: 40px;
-          transition: background 0.2s ease;
-        }
-        .modal-swiper .swiper-button-prev:hover,
-        .modal-swiper .swiper-button-next:hover {
-          background: rgba(0,0,0,0.7);
-        }
-        .modal-swiper .swiper-button-prev::after,
-        .modal-swiper .swiper-button-next::after {
-          font-size: 16px;
-          font-weight: 700;
-        }
-        .modal-swiper .swiper-pagination-bullet {
-          background: rgba(255,255,255,0.2);
-          opacity: 1;
-          width: 8px;
-          height: 8px;
-          margin: 0 5px !important;
-          transition: background 0.2s ease;
-        }
-        .modal-swiper .swiper-pagination-bullet-active {
-          background: var(--red);
-        }
       `}</style>
     </motion.div>
   );

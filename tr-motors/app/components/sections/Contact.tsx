@@ -2,29 +2,36 @@
 
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { MapPin, Phone, Share2, Clock } from 'lucide-react';
+import { MapPin, Phone, Share2, Clock, Mail } from 'lucide-react';
 
 const contactItems = [
   {
     icon: MapPin,
     label: 'Dirección',
-    value: 'Juan Benito Blanco 1293',
+    value: 'A. Rodríguez Castelao 3803',
     sub: 'Montevideo, Uruguay',
-    href: 'https://maps.app.goo.gl/hw8rJE7YdAz2MiK29',
+    href: 'https://maps.google.com/?q=A.+Rodr%C3%ADguez+Castelao+3803,+Montevideo',
   },
   {
     icon: Phone,
     label: 'WhatsApp',
-    value: '+598 94 900 542',
+    value: '091 946 795',
     sub: 'Respuesta rápida',
-    href: 'https://wa.me/5989400542',
+    href: 'https://wa.me/59891946795',
+  },
+  {
+    icon: Mail,
+    label: 'Email',
+    value: 'joeltripodi.trabajo@gmail.com',
+    sub: 'Respuesta en 24hs',
+    href: 'mailto:joeltripodi.trabajo@gmail.com',
   },
   {
     icon: Share2,
     label: 'Instagram',
-    value: '@trmotors',
+    value: '@trmotors.uy',
     sub: 'Seguinos para ver trabajos',
-    href: 'https://instagram.com/trmotors',
+    href: 'https://instagram.com/trmotors.uy',
   },
   {
     icon: Clock,
@@ -176,7 +183,7 @@ export default function Contact() {
             >
               {/* Embed Google Maps iframe here - replace with actual coordinates */}
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3271.886988311417!2d-56.14591832336818!3d-34.909285473701594!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x959f811346c53c1f%3A0xe5327a233b5e4f8e!2sJuan%20Benito%20Blanco%201293%2C%2011300%20Montevideo%2C%20Departamento%20de%20Montevideo!5e0!3m2!1ses!2suy!4v1778444866848!5m2!1ses!2suy"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3272.8739446866375!2d-56.12919742336905!3d-34.88451157238324!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x959f80d81370fd43%3A0xcca637d4862d4410!2sA.%20Rodr%C3%ADguez%20Castelao%203803%2C%2011400%20Montevideo%2C%20Departamento%20de%20Montevideo!5e0!3m2!1ses!2suy!4v1780207743621!5m2!1ses!2suy"
                 width="100%"
                 height="100%"
                 style={{ border: 0, filter: 'grayscale(100%) invert(90%) contrast(90%)', minHeight: '360px' }}
@@ -207,7 +214,7 @@ export default function Contact() {
                     textTransform: 'uppercase',
                     letterSpacing: '0.1em',
                     color: '#F5F5F5',
-                  }}>Juan Benito Blanco 1293, Montevideo, Uruguay</span>
+                  }}>A. Rodríguez Castelao 3803, Montevideo, Uruguay</span>
                 </div>
               </div>
             </motion.div>

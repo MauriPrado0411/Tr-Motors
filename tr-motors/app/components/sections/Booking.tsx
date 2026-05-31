@@ -106,7 +106,7 @@ export default function Booking() {
             { label: 'Confirmación', value: 'Automática', sub: 'por mail y WhatsApp' },
             { label: 'Cancelación', value: 'Sin cargo', sub: 'hasta 24hs antes' },
             { label: 'Horarios', value: 'Lun — Sab', sub: '09:00 a 19:00' },
-            { label: 'Consultas', value: 'WhatsApp', sub: '+598 94 900 542' },
+            { label: 'Consultas', value: 'WhatsApp', sub: '091 946 795' },
           ].map(item => (
             <div
               key={item.label}

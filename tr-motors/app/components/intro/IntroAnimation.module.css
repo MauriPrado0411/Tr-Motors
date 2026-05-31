@@ -9,14 +9,15 @@
 .carWrap {
   position: absolute;
   top: 50%;
-  left: 0;
-  transform: translateY(-50%);
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 10;
   will-change: transform;
 }
 
 .carImg {
-  width: clamp(460px, 60vw, 860px);
+  width: min(70vw, 860px);
+  max-width: 90vw;
   height: auto;
   display: block;
   position: relative;
@@ -57,7 +58,18 @@
   text-align: center;
   z-index: 20;
   pointer-events: none;
-  white-space: nowrap;
+  width: 90vw;
+}
+
+.titleMain {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 9.5vw, 120px);
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 0.88;
+  margin: 0;
 }
 
 .titleSub {
@@ -68,17 +80,6 @@
   letter-spacing: 0.38em;
   text-transform: uppercase;
   margin-bottom: 10px;
-}
-
-.titleMain {
-  font-family: var(--font-display);
-  font-size: clamp(52px, 9.5vw, 120px);
-  font-weight: 900;
-  color: #fff;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  line-height: 0.88;
-  margin: 0;
 }
 
 .titleDivider {
