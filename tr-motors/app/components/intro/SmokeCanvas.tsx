@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import type { RefObject } from 'react';
 
 interface Particle {
   x: number; y: number;
@@ -15,17 +16,20 @@ interface Particle {
 interface SmokeCanvasProps {
   active: boolean;
   phase: string;
+  carRef: RefObject<HTMLImageElement | null>;
 }
 
-export default function SmokeCanvas({ active, phase }: SmokeCanvasProps) {
+export default function SmokeCanvas({ active, phase, carRef }: SmokeCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particlesRef = useRef<Particle[]>([]);
   const rafRef = useRef<number>(0);
   const activeRef = useRef(active);
   const phaseRef = useRef(phase);
+  const carRefRef = useRef(carRef);
 
   useEffect(() => { activeRef.current = active; }, [active]);
   useEffect(() => { phaseRef.current = phase; }, [phase]);
+  useEffect(() => { carRefRef.current = carRef; }, [carRef]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -39,11 +43,21 @@ export default function SmokeCanvas({ active, phase }: SmokeCanvasProps) {
     resize();
     window.addEventListener('resize', resize);
 
-    function spawn() {
+    function getWheelPos() {
+      const el = carRefRef.current?.current;
+      if (el) {
+        const r = el.getBoundingClientRect();
+        return { x: r.left + r.width * 0.72, y: r.top + r.height * 0.78 };
+      }
       const W = canvas!.width;
       const H = canvas!.height;
-      const baseX = W * 0.38;
-      const baseY = H * 0.62;
+      return { x: W * 0.5, y: H * 0.62 };
+    }
+
+    function spawn() {
+      const pos = getWheelPos();
+      const baseX = pos.x;
+      const baseY = pos.y;
       const count = phaseRef.current === 'drift' ? 3 : 2;
 
       for (let i = 0; i < count; i++) {

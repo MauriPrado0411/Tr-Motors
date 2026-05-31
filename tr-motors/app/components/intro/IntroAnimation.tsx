@@ -13,6 +13,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
   const [smokeActive, setSmokeActive] = useState(false);
   const [showTitle, setShowTitle] = useState(false);
   const carControls = useAnimation();
+  const carImgRef = useRef<HTMLImageElement>(null);
   const timerRef = useRef<NodeJS.Timeout[]>([]);
 
   const addTimer = (fn: () => void, ms: number) => {
@@ -25,6 +26,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
 
     carControls.start({
       x: 0,
+      y: '-50%',
       scale: 1,
       rotate: 0,
       transition: {
@@ -50,12 +52,12 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
 
   return (
     <div className={styles.scene}>
-      <SmokeCanvas active={smokeActive} phase="enter" />
+      <SmokeCanvas active={smokeActive} phase="enter" carRef={carImgRef} />
 
       <motion.div
         className={styles.carWrap}
         animate={carControls}
-        initial={{ x: '-120vw', scale: 1.15 }}
+        initial={{ x: '-120vw', y: '-50%', scale: 1.15 }}
       >
         <AnimatePresence>
           {!showTitle && (
@@ -69,6 +71,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
         </AnimatePresence>
 
         <motion.img
+          ref={carImgRef}
           src="/cars/m2-front.png"
           alt="BMW M2"
           className={styles.carImg}
@@ -80,8 +83,8 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
         {showTitle && (
           <motion.div
             className={styles.titleWrap}
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: '-50%', y: 24 }}
+            animate={{ opacity: 1, x: '-50%', y: 0 }}
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           >
             <motion.p
