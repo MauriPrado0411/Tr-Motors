@@ -83,7 +83,7 @@ export default function Booking() {
         >
           {/* Replace URL with actual Calendly link */}
           <InlineWidget
-            url="https://calendly.com/mauprado411/30min"
+            url="https://calendly.com/joeltripodi-trabajo/30min"
             styles={{ height: '700px', minWidth: '320px' }}
             pageSettings={{
               backgroundColor: '080808',
